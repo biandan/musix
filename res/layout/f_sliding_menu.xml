@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello，musix"
+        android:textColor="#FF66FF"
+        android:textSize="28sp" />
+
+    <Button
+        android:id="@+id/bt_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关于" />
+
+    <Button
+        android:id="@+id/bt_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置" />
+
+    <Button
+        android:id="@+id/bt_time_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="定时关闭" />
+
+    <Button
+        android:id="@+id/bt_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="退出" />
+
+</LinearLayout>

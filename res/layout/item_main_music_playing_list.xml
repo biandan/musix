@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/tv_show_music_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题" />
+
+    <TextView
+        android:id="@+id/tv_show_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_show_music_title"
+        android:text="艺术家：" />
+
+    <TextView
+        android:id="@+id/tv_show_music_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_show_music_title"
+        android:layout_toRightOf="@id/tv_show_artist"
+        android:text="artist" />
+
+    
+
+    <TextView
+        android:id="@+id/tv_show_music_duration"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_show_music_title"
+        android:layout_marginRight="10dp"
+        android:text="duration" />
+    
+    
+    <TextView
+        android:id="@+id/tv_show_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_show_music_title"
+        android:layout_toLeftOf="@id/tv_show_music_duration"
+        android:text="时长：" />
+
+</RelativeLayout>

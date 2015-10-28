@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/tv_item_play_listing_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题" />
+
+    <TextView
+        android:id="@+id/tv_show_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_item_play_listing_title"
+        android:text="艺术家：" />
+
+    <TextView
+        android:id="@+id/tv_item_play_listing_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_item_play_listing_title"
+        android:layout_toRightOf="@id/tv_show_artist"
+        android:text="artist" />
+
+    <CheckBox
+        android:id="@+id/cb_item_play_listing_choose"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/tv_item_play_listing_duration"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_item_play_listing_title"
+        android:layout_toLeftOf="@id/cb_item_play_listing_choose"
+        android:text="duration" />
+
+    <TextView
+        android:id="@+id/tv_show_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_item_play_listing_title"
+        android:layout_toLeftOf="@id/tv_item_play_listing_duration"
+        android:text="时长：" />
+
+</RelativeLayout>

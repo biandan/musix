@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/default_background"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainMusixActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.yikang.ykmusix.been.MyViewPager
+        android:id="@+id/vp_musix_index"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="140dp"
+        android:layout_marginLeft="20dp" >
+    </com.yikang.ykmusix.been.MyViewPager>
+
+    <LinearLayout
+        android:id="@+id/ll_player"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/player_bg"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/bt_music_mode"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/loop_bt" />
+
+        <Button
+            android:id="@+id/bt_music_before"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/prev_bt" />
+
+        <Button
+            android:id="@+id/bt_music_play"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/play_bt" />
+
+        <Button
+            android:id="@+id/bt_music_next"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/next_bt" />
+
+        <Button
+            android:id="@+id/bt_music_list"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/musiclist_bt" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_player_progress"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_above="@id/ll_player"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="75dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_player_cur_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00" />
+
+        <SeekBar
+            android:id="@+id/sb_player_progress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:max="1000" />
+
+        <TextView
+            android:id="@+id/tv_player_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_show_current_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_player_progress"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_show_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="biaoti" >
+        </TextView>
+        <TextView
+            android:id="@+id/tv_show_info_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="artist" >
+        </TextView>
+    </LinearLayout>
+
+</RelativeLayout>

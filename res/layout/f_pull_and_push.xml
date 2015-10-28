@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_pull_and_push"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <!-- ll_behind 后面 -->
+
+    <RelativeLayout
+        android:id="@+id/ll_behind"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="60dp"
+        android:background="#363636" >
+
+        <!-- LED -->
+
+        <RelativeLayout
+            android:id="@+id/rl_led"
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true" >
+
+            <TextView
+                android:id="@+id/tv_music1"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:text="LED"
+                android:textColor="#ff0000" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@id/tv_music1" />
+
+            <TextView
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Behind"
+                android:textColor="#ff0000" />
+        </RelativeLayout>
+
+        <!-- 沙发 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_safa"
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:layout_above="@id/rl_led" >
+
+            <TextView
+                android:id="@+id/tv_music1"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:text="沙发"
+                android:textColor="#ff0000" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@id/tv_music1" />
+
+            <TextView
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Behind"
+                android:textColor="#ff0000" />
+        </RelativeLayout>
+
+        <!-- 脑波 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_nao"
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:layout_above="@id/rl_safa" >
+
+            <TextView
+                android:id="@+id/tv_music1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="脑波"
+                android:textColor="#ff0000" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@id/tv_music1" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Behind"
+                android:textColor="#ff0000" />
+        </RelativeLayout>
+
+        <!-- 音乐2 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_music2"
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:layout_above="@id/rl_nao" >
+
+            <TextView
+                android:id="@+id/tv_music1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="音乐2"
+                android:textColor="#ff0000" />
+
+            <SeekBar
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@id/tv_music1" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Behind"
+                android:textColor="#ff0000" />
+        </RelativeLayout>
+
+        <!-- 音乐1 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_music1"
+            android:layout_width="fill_parent"
+            android:layout_height="55dp"
+            android:layout_above="@id/rl_music2" >
+
+            <TextView
+                android:id="@+id/tv_music1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="音乐1"
+                android:textColor="#ff0000" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@id/tv_music1" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Behind"
+                android:textColor="#ff0000" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+       <!-- ll_front 前面 -->
+    
+    <LinearLayout
+        android:id="@+id/ll_front"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="60dp"
+        android:background="#8ff1f1"
+        android:orientation="vertical"
+        android:paddingBottom="40dp" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Front" />
+        <ImageView 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/img_album"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_music_settin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout> 
+
