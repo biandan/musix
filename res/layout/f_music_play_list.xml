@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/player_listing_bg"
+    android:alpha="0.5"
+    >
 
     <TextView
-      
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       
         android:textColor="#ff0000" />
-    <ListView 
-        android:focusableInTouchMode="true"
-        android:descendantFocusability="blocksDescendants" 
+
+    <ListView
         android:id="@+id/lv_music_play_list"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        ></ListView>
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:focusableInTouchMode="true" >
+    </ListView>
 
 </FrameLayout>

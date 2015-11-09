@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
     <EditText
         android:id="@+id/et_dialog_input_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="输入列表标题" >
-        <requestFocus />
+        android:hint="请输入标题\(^o^)/ " >
     </EditText>
 
 </RelativeLayout>

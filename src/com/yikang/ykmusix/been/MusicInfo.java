@@ -13,6 +13,12 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
+
+/**
+ *一首歌曲包含的信息
+ * @author Administrator
+ *
+ */
 public class MusicInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +34,18 @@ public class MusicInfo implements Serializable {
 	String url; // 文件路径
 	int isMusic;// 是否为音乐
 	long id; // 音乐id
+	/**
+	 * 歌曲对应的歌词地址
+	 */
+	String lrcUrl ;
+
+	public String getLrcUrl() {
+		return lrcUrl;
+	}
+
+	public void setLrcUrl(String lrcUrl) {
+		this.lrcUrl = lrcUrl;
+	}
 
 	public long getId() {
 		return id;
@@ -132,7 +150,7 @@ public class MusicInfo implements Serializable {
 	private static final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
 
 	/**
-	 * 从文件当中获取专辑封面位图
+	 * 从文件当中获取专辑封面位图,并且重新匹配大小
 	 * 
 	 * @param context
 	 * @param songid
@@ -141,6 +159,7 @@ public class MusicInfo implements Serializable {
 	 */
 
 	public static Bitmap getArtworkFromFile(Context context, long songid, long albumid) {
+		int fitSize=600;
 		Bitmap bm = null;
 		Bitmap bm1 = null;
 		if (albumid < 0 && songid < 0) {
@@ -188,7 +207,7 @@ public class MusicInfo implements Serializable {
 			System.out.println("view bitmap h:" + bm.getHeight() + " w:" + bm.getWidth());
 
 			Log.d("MusicInfo ", "view  bm h " + bm.getHeight() + " w " + bm.getWidth());
-			return figSize(bm, 600);
+			return figSize(bm, fitSize);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

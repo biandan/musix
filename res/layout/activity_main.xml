@@ -29,39 +29,39 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_margin="5dp"
-        android:background="@drawable/player_bg"
+     
         android:gravity="center"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/bt_music_mode"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@drawable/loop_bt" />
 
         <Button
             android:id="@+id/bt_music_before"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@drawable/prev_bt" />
 
         <Button
             android:id="@+id/bt_music_play"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_margin="5dp"
             android:background="@drawable/play_bt" />
 
         <Button
             android:id="@+id/bt_music_next"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@drawable/next_bt" />
 
         <Button
             android:id="@+id/bt_music_list"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@drawable/musiclist_bt" />
     </LinearLayout>
 
@@ -97,7 +97,7 @@
             android:text="00:00" />
     </LinearLayout>
 
-    <LinearLayout
+   <!--  <LinearLayout
         android:id="@+id/ll_show_current_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,6 +116,6 @@
             android:layout_height="wrap_content"
             android:text="artist" >
         </TextView>
-    </LinearLayout>
+    </LinearLayout> -->
 
 </RelativeLayout>

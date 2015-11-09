@@ -11,18 +11,10 @@
         android:text="标题" />
 
     <TextView
-        android:id="@+id/tv_show_artist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_item_play_listing_title"
-        android:text="艺术家：" />
-
-    <TextView
         android:id="@+id/tv_item_play_listing_artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_item_play_listing_title"
-        android:layout_toRightOf="@id/tv_show_artist"
         android:text="artist" />
 
     <CheckBox
@@ -42,7 +34,7 @@
         android:layout_below="@id/tv_item_play_listing_title"
         android:layout_toLeftOf="@id/cb_item_play_listing_choose"
         android:text="duration" />
-
+    <!--
     <TextView
         android:id="@+id/tv_show_duration"
         android:layout_width="wrap_content"
@@ -50,5 +42,6 @@
         android:layout_below="@id/tv_item_play_listing_title"
         android:layout_toLeftOf="@id/tv_item_play_listing_duration"
         android:text="时长：" />
+    -->
 
 </RelativeLayout>

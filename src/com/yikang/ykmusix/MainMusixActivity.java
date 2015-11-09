@@ -2,15 +2,13 @@ package com.yikang.ykmusix;
 
 import java.io.Serializable;
 import java.util.List;
-
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.yikang.ykmusix.MusicListingActivity.PlayListingFragment;
-import com.yikang.ykmusix.been.MusicDBManager;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenedListener;
+import com.yikang.ykmusix.been.LRCTextView;
 import com.yikang.ykmusix.been.MusicInfo;
 import com.yikang.ykmusix.been.MusicListingItem;
 import com.yikang.ykmusix.been.MusicStaticPool;
-import com.yikang.ykmusix.been.ViewHolder;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,25 +20,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -53,20 +41,19 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-
 import com.yikang.ykmusix.been.MyViewPager;
+import com.yikang.ykmusix.model.MusicDBManager;
+import com.yikang.ykmusix.model.QZoneShare;
 
 public class MainMusixActivity extends FragmentActivity {
 
-	private SlidingMenuFragment mSlidingFragment;
-	private static Context mContext;
-
+	private FragmentSlidingMenu mSlidingFragment;
+	static Context mContext;
 	private static boolean isUpState = false;
-	private static MusicPlayerService mMusicPlayerService;
+	static MusicPlayerService mMusicPlayerService;
 
 	private static MyViewPager mViewPager;
-	private static Button mBT_Music_Play;
+	static Button mBT_Music_Play;
 	private Button mBT_Music_next;
 	private Button mBT_Music_before;
 	private Button mBT_Music_list;
@@ -77,15 +64,22 @@ public class MainMusixActivity extends FragmentActivity {
 	private static SeekBar mSeekBar;
 
 	private static final int Loop = 0;
-	private static final int Order = 1;
-	private static final int Random = 2;
-	private static final int Single = 3;
+	// private static final int Order = 1;
+	private static final int Random = 1;
+	private static final int Single = 2;
 
 	static ViewPagerAdapter mAdapter;
-	Intent service;
+	static Intent service;
+
+	/**
+	 * 获取当前服务的 Intent
+	 * 
+	 * @return
+	 */
 
 	MainMusicHandle mHandle = new MainMusicHandle();
 
+	/****************************************************************************************/
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -172,9 +166,35 @@ public class MainMusixActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+
+		if (MusicStaticPool.isExitApp()) {
+			finish();
+		}
 		Intent intent = new Intent(this, MusicPlayerService.class);
 		intent.putExtra("MainMusicHandle", mHandle);
 		bindService(intent, connService, Context.BIND_AUTO_CREATE);
+		if (!MusicPlayerService.getCurPlayingStata()) {
+			mBT_Music_Play.setBackgroundResource(R.drawable.play_bt);
+		} else {
+			mBT_Music_Play.setBackgroundResource(R.drawable.pause_bt);
+
+		}
+
+		switch (MusicStaticPool.getCurModel()) {
+		case Loop:
+			mBT_Music_Mode.setBackgroundResource(R.drawable.loop_bt);
+			break;
+		case Random:
+			mBT_Music_Mode.setBackgroundResource(R.drawable.shuffle_bt);
+			break;
+		case Single:
+			mBT_Music_Mode.setBackgroundResource(R.drawable.single_bt);
+			break;
+
+		default:
+			break;
+		}
+
 	}
 
 	@Override
@@ -186,6 +206,14 @@ public class MainMusixActivity extends FragmentActivity {
 		}
 		unbindService(connService);
 		System.out.println("MainMusixActivity onDestroy!");
+	}
+
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		
+		if(QZoneShare.mTencent!=null){
+			QZoneShare.mTencent.onActivityResult(arg0, arg1, arg2);
+		}
 	}
 
 	static private List<MusicListingItem> reSetLoadMusicListings() {
@@ -210,7 +238,7 @@ public class MainMusixActivity extends FragmentActivity {
 
 	}
 
-	static private void musicPlay(String url) {
+	static void musicPlay(String url) {
 		MusicPlayerService.playNext(url);
 		mBT_Music_Play.setBackgroundResource(R.drawable.pause_bt);
 	}
@@ -221,7 +249,7 @@ public class MainMusixActivity extends FragmentActivity {
 		@Override
 		public void onClick(View v) {
 			if (v == mBT_Music_Mode) {
-				if (MusicStaticPool.getCurModel() + 1 < 4) {
+				if (MusicStaticPool.getCurModel() + 1 < 3) {
 					MusicStaticPool.setCurModel(MusicStaticPool.getCurModel() + 1);
 				} else {
 					MusicStaticPool.setCurModel(0);
@@ -231,10 +259,6 @@ public class MainMusixActivity extends FragmentActivity {
 				case Loop:
 					// mBT_Music_Mode.setText("循环");
 					mBT_Music_Mode.setBackgroundResource(R.drawable.loop_bt);
-					break;
-				case Order:
-					// mBT_Music_Mode.setText("顺序");
-					mBT_Music_Mode.setBackgroundResource(R.drawable.order_bt);
 					break;
 				case Random:
 					// mBT_Music_Mode.setText("随机");
@@ -262,7 +286,7 @@ public class MainMusixActivity extends FragmentActivity {
 				} else {
 					MusicStaticPool.setCurPlayListPS(MusicStaticPool.getCurPlayList().size() - 1);
 				}
-				PlayListFragment.dataHavedChanged();
+				FragmentPlayList.dataHavedChanged();
 				musicPlay(MusicStaticPool.getCurPlayList().get(MusicStaticPool.getCurPlayListPS()).getUrl());
 				ShowFragment.setAlbumImg();
 			}
@@ -291,7 +315,7 @@ public class MainMusixActivity extends FragmentActivity {
 					MusicStaticPool.setCurPlayListPS(0);
 				}
 				musicPlay(MusicStaticPool.getCurPlayList().get(MusicStaticPool.getCurPlayListPS()).getUrl());
-				PlayListFragment.dataHavedChanged();
+				FragmentPlayList.dataHavedChanged();
 				ShowFragment.setAlbumImg();
 			}
 
@@ -305,14 +329,19 @@ public class MainMusixActivity extends FragmentActivity {
 	}
 
 	SlidingMenu mSlidMenu;
+	boolean isMenuOpen = false;
 
+	/**
+	 * 初始化菜单
+	 * @param savedInstanceState
+	 */
 	private void initSlidingMenu(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
-			mSlidingFragment = (SlidingMenuFragment) getSupportFragmentManager().getFragment(savedInstanceState, "mFragment");
+			mSlidingFragment = (FragmentSlidingMenu) getSupportFragmentManager().getFragment(savedInstanceState, "mFragment");
 		}
 
 		if (mSlidingFragment == null) {
-			mSlidingFragment = new SlidingMenuFragment();
+			mSlidingFragment = new FragmentSlidingMenu();
 		}
 
 		// 实例化滑动菜单对象
@@ -344,6 +373,21 @@ public class MainMusixActivity extends FragmentActivity {
 			}
 		});
 
+		mSlidMenu.setOnOpenedListener(new OnOpenedListener() {
+
+			@Override
+			public void onOpened() {
+				isMenuOpen = true;
+
+			}
+		});
+		mSlidMenu.setOnClosedListener(new OnClosedListener() {
+
+			@Override
+			public void onClosed() {
+				isMenuOpen = false;
+			}
+		});
 		mSlidMenu.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
 			@Override
 			public void transformCanvas(Canvas canvas, float percentOpen) {
@@ -369,17 +413,6 @@ public class MainMusixActivity extends FragmentActivity {
 		}
 	};
 
-	// =====================================SlidingMenuFragment=================================================
-
-	public static class SlidingMenuFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			super.onCreateView(inflater, container, savedInstanceState);
-			return inflater.inflate(R.layout.f_sliding_menu, null);
-		}
-	}
-
 	// =====================================ViewPagerAdapter=================================================
 
 	public class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -390,7 +423,7 @@ public class MainMusixActivity extends FragmentActivity {
 		@Override
 		public android.support.v4.app.Fragment getItem(int arg0) {
 			if (arg0 == 0) {
-				return new PlayListFragment();
+				return new FragmentPlayList();
 			} else {
 				return new ShowFragment();
 			}
@@ -404,188 +437,56 @@ public class MainMusixActivity extends FragmentActivity {
 
 	}
 
-	// --------------------------------PlayListFragment---------------------------------
-
-	public static class PlayListFragment extends Fragment {
-
-		ListView listView;
-		static PlayingListAdapter MusicAdapter;
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			super.onCreateView(inflater, container, savedInstanceState);
-			System.out.println("PlayListFragment onCreateView");
-			View view = inflater.inflate(R.layout.f_music_play_list, null);
-			listView = (ListView) view.findViewById(R.id.lv_music_play_list);
-			MusicAdapter = new PlayingListAdapter(mContext);
-			listView.setAdapter(MusicAdapter);
-
-			// 默认显示系统列表
-			if (MusicStaticPool.getCurPlayListPS() == -1) {
-				MusicStaticPool.setCurListing(reSetLoadMusicListings());
-				MusicStaticPool.setCurListingPS(0);
-				MusicStaticPool.setCurPlayList(loadSelectPlayList(MusicStaticPool.getCurListing().get(0).getId()));
-			}
-
-			listView.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					MusicStaticPool.setCurPlayListPS(position);
-					musicPlay(MusicStaticPool.getCurPlayList().get(position).getUrl());
-					Toast.makeText(mContext, "播放" + MusicStaticPool.getCurPlayList().get(position).getTitle(), 1000).show();
-					mBT_Music_Play.setBackgroundResource(R.drawable.btn_pause_normal);
-					MusicAdapter.notifyDataSetChanged();
-
-				}
-			});
-			return view;
-		}
-
-		private String getURLfileName(String url) {
-
-			String[] fileName = null;
-
-			if (url != null) {
-				fileName = url.split("/");
-				// 得到最终需要的文件名
-				System.out.println(fileName[fileName.length - 1]);
-			}
-
-			return fileName[fileName.length - 1];
-
-		}
-
-		@Override
-		public void onResume() {
-			super.onResume();
-
-			System.out.println("onResume");
-			if (mMusicPlayerService != null) {
-				dataHavedChanged();
-
-			}
-
-		}
-
-		public static void dataHavedChanged() {
-			if (MusicAdapter != null) {
-				MusicAdapter.notifyDataSetChanged();
-			} else {
-				System.out.println("MusicAdapter = null ");
-			}
-
-		}
-
-		class PlayingListAdapter extends BaseAdapter {
-
-			Context context;
-			LayoutInflater inflater;
-
-			public PlayingListAdapter(Context context) {
-				this.context = context;
-				inflater = LayoutInflater.from(context);
-				// initData();
-			}
-
-			@Override
-			public void notifyDataSetChanged() {
-				super.notifyDataSetChanged();
-				// initData();
-			}
-
-			@Override
-			public int getCount() {
-				return MusicStaticPool.getCurPlayList().size();
-			}
-
-			@Override
-			public Object getItem(int position) {
-				return MusicStaticPool.getCurPlayList().get(position);
-			}
-
-			@Override
-			public long getItemId(int position) {
-				return position;
-			}
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-
-				ViewHolder holder = null;
-				if (convertView == null) {
-					// 获得ViewHolder对象
-					holder = new ViewHolder();
-					// 导入布局并赋值给convertview
-					convertView = inflater.inflate(R.layout.item_main_music_playing_list, null);
-					holder.tv_title = (TextView) convertView.findViewById(R.id.tv_show_music_title);
-					holder.tv_artist = (TextView) convertView.findViewById(R.id.tv_show_music_artist);
-					holder.tv_duration = (TextView) convertView.findViewById(R.id.tv_show_music_duration);
-
-					// 为view设置标签
-					convertView.setTag(holder);
-				} else {
-					// 取出holder
-					holder = (ViewHolder) convertView.getTag();
-				}
-				// 设置list中TextView的显示
-				holder.tv_title.setText(MusicStaticPool.getCurPlayList().get(position).getTitle());
-				if (MusicStaticPool.getCurPlayListPS() == position) {
-					holder.tv_title.setTextColor(Color.RED);
-				} else {
-					holder.tv_title.setTextColor(Color.BLACK);
-				}
-				holder.tv_artist.setText(MusicStaticPool.getCurPlayList().get(position).getArtist());
-
-				holder.tv_duration.setText(MusicInfo.getDurStr(MusicStaticPool.getCurPlayList().get(position).getDuration()) + "");
-				// 根据isSelected来设置checkbox的选中状况
-
-				return convertView;
-			}
-
-		}
-
-	}
-
 	// ---------------------------------ShowFragment-----------------------------------
 
+	/**
+	 * 暂时用来显示歌词以及歌曲封面
+	 * @author Administrator
+	 *
+	 */
 	public static class ShowFragment extends Fragment {
 		RelativeLayout mLL_behind;
-		LinearLayout mLL_frond;
-		Button mBT_music_setting, mBT_behind;
+		RelativeLayout mRL_frond;
+//		Button mBT_music_setting, mBT_behind;
 		static ImageView img_album;
+		static com.yikang.ykmusix.been.LRCTextView tv_show_fragmet_lrc;
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			super.onCreateView(inflater, container, savedInstanceState);
 			View view = inflater.inflate(R.layout.f_pull_and_push, null);
 			mLL_behind = (RelativeLayout) view.findViewById(R.id.ll_behind);
-			mLL_frond = (LinearLayout) view.findViewById(R.id.ll_front);
+			mRL_frond = (RelativeLayout) view.findViewById(R.id.ll_front);
 			img_album = (ImageView) view.findViewById(R.id.img_album);
+			tv_show_fragmet_lrc = (LRCTextView) view.findViewById(R.id.tv_show_fragmet_lrc);
+//			mBT_music_setting = (Button) view.findViewById(R.id.bt_music_setting);
+//			 mBT_music_setting.setBackgroundResource(R.drawable.btn_up);
 
-			mBT_music_setting = (Button) view.findViewById(R.id.bt_music_settin);
-			mBT_music_setting.setBackgroundResource(R.drawable.btn_up);
-			mBT_music_setting.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					System.out.println("mBT_music_setting onClick ");
-
-					if (isUpState) {
-						mViewPager.setCanScroll(true);
-						moveDown(mLL_frond);
-						mBT_music_setting.setBackgroundResource(R.drawable.btn_up);
-						isUpState = false;
-
-					} else {
-						mViewPager.setCanScroll(false);
-						moveUp(mLL_frond);
-						mBT_music_setting.setBackgroundResource(R.drawable.btn_down);
-						isUpState = true;
-
-					}
-
-				}
-			});
+			/**** ？ 先暂时屏蔽掉 */
+//			mBT_music_setting.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					// TODO Auto-generated method stub
+//					System.out.println("mBT_music_setting onClick ");
+//
+//					if (isUpState) {
+//						mViewPager.setCanScroll(true);
+//						moveDown(mRL_frond);
+//						// mBT_music_setting
+//						// .setBackgroundResource(R.drawable.btn_up);
+//						isUpState = false;
+//
+//					} else {
+//						mViewPager.setCanScroll(false);
+//						moveUp(mRL_frond);
+//						// mBT_music_setting
+//						// .setBackgroundResource(R.drawable.btn_down);
+//						isUpState = true;
+//
+//					}
+//
+//				}
+//			});
 
 			return view;
 		}
@@ -608,7 +509,7 @@ public class MainMusixActivity extends FragmentActivity {
 				}
 			} else {
 				img_album.setImageResource(R.drawable.ic_launcher);
-				
+
 			}
 		}
 
@@ -653,16 +554,16 @@ public class MainMusixActivity extends FragmentActivity {
 						Toast.LENGTH_SHORT).show();
 
 				if (mMusicPlayerService != null) {
-
-					if (MusicPlayerService.getCurPlayingStata()) {
-
-						mBT_Music_Play.setBackgroundResource(R.drawable.play_bt);
-						MusicPlayerService.Pause();
-					} else {
-						mBT_Music_Play.setBackgroundResource(R.drawable.pause_bt);
-						MusicPlayerService.Resume();
-					}
-					PlayListFragment.dataHavedChanged();
+					//
+					// if (MusicPlayerService.getCurPlayingStata()) {
+					//
+					// mBT_Music_Play.setBackgroundResource(R.drawable.play_bt);
+					// MusicPlayerService.Pause();
+					// } else {
+					// mBT_Music_Play.setBackgroundResource(R.drawable.pause_bt);
+					// MusicPlayerService.Resume();
+					// }
+					FragmentPlayList.dataHavedChanged();
 				}
 			}
 			if (msg.what == 2002) {// 播放完消息
@@ -675,12 +576,25 @@ public class MainMusixActivity extends FragmentActivity {
 					} else {
 						mBT_Music_Play.setBackgroundResource(R.drawable.pause_bt);
 					}
-					PlayListFragment.dataHavedChanged();
+					FragmentPlayList.dataHavedChanged();
 				}
+
+			}
+
+			if (msg.what == MSG_UPDATA_LRC_TEXT) {
+				ShowFragment.tv_show_fragmet_lrc.invalidate();
+				try {
+					ShowFragment.tv_show_fragmet_lrc.updata(MusicStaticPool.getLrcIndexShow(), MusicStaticPool.getLrInfo().getInfos(),
+							MusicStaticPool.getLrInfo().getKey());
+				} catch (Exception e) {
+					Log.d("MainMusicHandle", "歌词为空所以会异常，程序继续执行~~");
+				}
+
 			}
 		}
 	}
 
+	private final static int MSG_UPDATA_LRC_TEXT = 3000;
 	private static String mMusicTimeLen = "";
 	private static String mMusicCurTimeLen = "";
 	private static int mProgress = 0;
@@ -712,6 +626,8 @@ public class MainMusixActivity extends FragmentActivity {
 	public void stopApp() {
 		mContext.getApplicationContext().stopService(service);
 		finish();
+		// android.os.Process.killProcess(android.os.Process.myPid());
+		// System.exit(0); //常规java、c#的标准退出法，返回值为0代表正常退出
 	}
 
 	MainNotifycationReceiver bReceiver;
@@ -756,7 +672,11 @@ public class MainMusixActivity extends FragmentActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			showExitDialog();
+			if (isMenuOpen) {
+				mSlidMenu.toggle();
+				return true;
+			}
+
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_MENU) {

@@ -1,66 +1,63 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_play_listing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/player_bg"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainMusixActivity" >
 
-    <TextView
-        android:id="@+id/tv_play_listing_title"
-        android:layout_width="80dp"
+    <LinearLayout
+        android:id="@+id/ll_play_listing_state"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="列表名称"
-        android:textSize="18sp" />
+        android:background="#8ff1f1"
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/tv_play_listing"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_play_listing_title"
-        android:layout_marginBottom="15dp"
-        android:padding="5dp"
-        android:text="已经选择X个"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_play_listing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="已经选择X个"
+            android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/bt_play_listing_all_inv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tv_play_listing_title"
-        android:layout_toRightOf="@id/tv_play_listing"
-        android:text="All/INV" />
+        <Button
+            android:id="@+id/bt_play_listing_all_inv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/tv_play_listing"
+            android:layout_weight="1"
+            android:text="All/INV" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_play_listing"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_play_listing"
-        android:layout_marginBottom="50dp" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
     </ListView>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <Button
             android:id="@+id/bt_play_listing_add_del"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加音乐到列表" />
-
-        <Button
-            android:id="@+id/bt_play_listing_p"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="P" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/music_add_style_bt" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

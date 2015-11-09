@@ -1,43 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <ImageView
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:src="@drawable/ic_launcher"/>
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello，musix"
-        android:textColor="#FF66FF"
-        android:textSize="28sp" />
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/setting_item_bg"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/bt_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="关于" />
+            <!-- android:background="@drawable/setting_item_bg" -->
 
-    <Button
-        android:id="@+id/bt_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="设置" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/bt_time_off"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="定时关闭" />
+                <ImageView
+                    android:id="@+id/img_setting_user"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/user_example" />
 
-    <Button
-        android:id="@+id/bt_exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="退出" />
+                <TextView
+                    android:id="@+id/tv_setting_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/img_setting_user"
+                    android:layout_toRightOf="@id/img_setting_user"
+                    android:text="Hello，musix"
+                    android:textColor="#FF66FF"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_setting_about"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/sling_menu_bg" >
+
+                <ImageView
+                    android:id="@+id/img_setting_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icn_about" />
+
+                <TextView
+                    android:id="@+id/tv_setting_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img_setting_about"
+                    android:text="关于musix"
+                    android:textColor="#FF66FF"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_setting_time_off"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/sling_menu_bg" >
+
+                <ImageView
+                    android:id="@+id/img_setting_time_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icn_clock" />
+
+                <TextView
+                    android:id="@+id/tv_setting_time_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img_setting_time_off"
+                    android:text="定时退出"
+                    android:textColor="#FF66FF"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_setting_qzone_share"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/sling_menu_bg" >
+
+                <ImageView
+                    android:id="@+id/img_setting_qzone_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icn_setting" />
+
+                <TextView
+                    android:id="@+id/tv_setting_qzone_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img_setting_qzone_share"
+                    android:text="分享到QQ空间"
+                    android:textColor="#FF66FF"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_setting"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/sling_menu_bg" >
+
+                <ImageView
+                    android:id="@+id/img_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icn_setting" />
+
+                <TextView
+                    android:id="@+id/tv_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img_setting"
+                    android:text="设置"
+                    android:textColor="#FF66FF"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_setting_updata"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/sling_menu_bg" >
+
+                <ImageView
+                    android:id="@+id/img_setting_updata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icn_setting" />
+
+                <TextView
+                    android:id="@+id/tv_setting_updata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img_setting_updata"
+                    android:text="更新"
+                    android:textColor="#FF66FF"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_setting_exit"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/sling_menu_bg" >
+
+                <ImageView
+                    android:id="@+id/img_setting_exit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icn_exit" />
+
+                <TextView
+                    android:id="@+id/tv_setting_exit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/img_setting_exit"
+                    android:text="退出音乐"
+                    android:textColor="#FF66FF"
+                    android:textSize="26sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

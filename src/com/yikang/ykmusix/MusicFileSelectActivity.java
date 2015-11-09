@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import com.yikang.ykmusix.been.MusicInfo;
+import com.yikang.ykmusix.been.MusicStaticPool;
 import com.yikang.ykmusix.been.ViewHolder;
+import com.yikang.ykmusix.model.MusicFilter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +30,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
+/**
+ * 
+ * @author Administrator
+ *
+ */
 public class MusicFileSelectActivity extends Activity {
 
 	private static final String FileSelectResult = "Result";
@@ -53,6 +62,14 @@ public class MusicFileSelectActivity extends Activity {
 		mAdapter.notifyDataSetChanged();
 
 	};
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (MusicStaticPool.isExitApp()) {
+			finish();
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +109,9 @@ public class MusicFileSelectActivity extends Activity {
 		Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null,
 				MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
 		List<MusicInfo> mp3Infos = new ArrayList<MusicInfo>();
+
 		if (cursor == null) {
+
 			return null;
 		}
 		for (int i = 0; i < cursor.getCount(); i++) {
@@ -107,16 +126,16 @@ public class MusicFileSelectActivity extends Activity {
 			int isMusic = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC));// 是否为音乐
 			String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM)); // 专辑
 			long albumId = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));// 专辑 ID
-
-			if (isMusic != 0) { // 只把音乐添加到集合当中
-				mp3Info.setId(id);
-				mp3Info.setTitle(title);
-				mp3Info.setArtist(artist);
-				mp3Info.setDuration(duration);
-				mp3Info.setSize(size);
-				mp3Info.setUrl(url);
-				mp3Info.setAlbum(album);
-				mp3Info.setAlbumID(albumId);
+			mp3Info.setId(id);
+			mp3Info.setTitle(title);
+			mp3Info.setArtist(artist);
+			mp3Info.setDuration(duration);
+			mp3Info.setSize(size);
+			mp3Info.setUrl(url);
+			mp3Info.setAlbum(album);
+			mp3Info.setAlbumID(albumId);
+			mp3Info.setLrcUrl("NO");
+			if (isMusic != 0 && MusicFilter.filterMusicFile(mp3Info)) { // 只把音乐添加到集合当中
 				mp3Infos.add(mp3Info);
 			}
 		}

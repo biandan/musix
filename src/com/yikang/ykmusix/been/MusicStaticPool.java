@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.yikang.ykmusix.MusicPlayerService;
+import com.yikang.ykmusix.model.LRCParser.LrcInfo;
 
 /**
  * 这个类是用来保存当前播放时的信息状态
@@ -22,11 +23,49 @@ public class MusicStaticPool implements Serializable {
 	private static MusicInfo CurMusicPlaying;// 当前所播放的音乐信息
 	private static List<MusicInfo> CurPlayList; // 当前播放列表
 	private static List<MusicListingItem> CurListing; // 所有列表
-	private static int CurModel = -1; // 当前播放模式
+	private static int CurModel = 0; // 当前播放模式 默认值为0 循环模式
 	private static int courentListingID = -1; // 当前列表ID
 	private static int CurPlayListPS = -1;// 当前列表所在的list中的位置
 	private static int CurListingPS = -1;// 当前列表所在的list中的位置
 	private static boolean isPlaying = false;
+
+	/**
+	 * 当前显示歌词的引索
+	 */
+	private static int lrcIndexShow = 0;
+	/**
+	 * 当前播放的歌词信息
+	 */
+	private static LrcInfo LrInfo = null;
+	
+	private static boolean isExitApp=false ;
+	
+	
+
+	public static boolean isExitApp() {
+		return isExitApp;
+	}
+
+	public static void setExitApp(boolean isExitApp) {
+		MusicStaticPool.isExitApp = isExitApp;
+	}
+
+	public static int getLrcIndexShow() {
+		return lrcIndexShow;
+	}
+
+	public static void setLrcIndexShow(int lrcIndexShow) {
+		MusicStaticPool.lrcIndexShow = lrcIndexShow;
+	}
+
+	public static LrcInfo getLrInfo() {
+		return LrInfo;
+	}
+
+	public static void setLrInfo(LrcInfo lrInfo) {
+	
+		LrInfo = lrInfo;
+	}
 
 	public static MusicPlayerService getPlayer() {
 		return Player;
@@ -81,8 +120,8 @@ public class MusicStaticPool implements Serializable {
 	}
 
 	public static void setCurPlayListPS(int curPlayListPS) {
-		
-		CurMusicPlaying	=CurPlayList.get(curPlayListPS);//自动保存当前音乐播放信息
+
+		CurMusicPlaying = CurPlayList.get(curPlayListPS);// 自动保存当前音乐播放信息
 		CurPlayListPS = curPlayListPS;
 	}
 
@@ -102,7 +141,4 @@ public class MusicStaticPool implements Serializable {
 		MusicStaticPool.isPlaying = isPlaying;
 	}
 
-	
-
-	
 }

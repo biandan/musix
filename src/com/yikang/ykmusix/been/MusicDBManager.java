@@ -14,12 +14,31 @@ public class MusicDBManager {
 	String MusicListingDBName = "ykmusix_music_listing.db";
 	String MusicPlayListingDBName = "ykmusix_music_play_listing.db";
 	int DBVersion = 1;
+	/**
+	 * 列表
+	 */
 	String musicListingTable = "music_listing";
+
+	/**
+	 * 歌曲列表
+	 */
 	String musicPlayingListingTable = "music_play_listing";
 
+	/**
+	 * 操作数据 列表
+	 */
 	private MusicListingDBHelp mMusicListingDBHelp;
-	PlayListingDBHelp mPlayListingDBHelp;
+	/**
+	 * 数据操作 歌曲列表
+	 */
+	private PlayListingDBHelp mPlayListingDBHelp;
+	/**
+	 * 数据库 列表
+	 */
 	private SQLiteDatabase mMusicDB;
+	/**
+	 * 数据库 音乐列表
+	 */
 	private SQLiteDatabase mListingDB;
 
 	public MusicDBManager(Context context) {
@@ -32,6 +51,12 @@ public class MusicDBManager {
 
 	}
 
+	/**
+	 * 保存音乐列表 操作的数据库类
+	 * 
+	 * @author Administrator
+	 * 
+	 */
 	class MusicListingDBHelp extends SQLiteOpenHelper {
 		public MusicListingDBHelp(Context context) {
 
@@ -54,6 +79,12 @@ public class MusicDBManager {
 
 	}
 
+	/**
+	 * 保存列表歌曲
+	 * 
+	 * @author Administrator
+	 * 
+	 */
 	class PlayListingDBHelp extends SQLiteOpenHelper {
 
 		public PlayListingDBHelp(Context context) {
@@ -78,14 +109,15 @@ public class MusicDBManager {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE IF NOT EXISTS "
 					+ musicPlayingListingTable
-					+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT,music_listing_id INTEGER ,title VARCHAR,music_url VARCHAR, artist VARCHAR, duration INTEGER, size INTEGER , albunm_id INTEGER,album VARCHAR)");
+					+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT,music_listing_id INTEGER ,title VARCHAR,music_url VARCHAR," +
+					" artist VARCHAR, duration INTEGER, size INTEGER , albunm_id INTEGER,album VARCHAR,lrc_url VARCHAR)");
 
-			System.out.println("CREATE TABLE " + musicPlayingListingTable);
+			System.out.println("已经创建：" + musicPlayingListingTable);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			db.execSQL("ALTER TABLE " + musicPlayingListingTable + " ADD COLUMN other STRING");
+			db.execSQL("ALTER 创建： " + musicPlayingListingTable + " ADD COLUMN other STRING");
 			System.out.println("ALTER TABLE " + musicPlayingListingTable);
 		}
 
@@ -102,25 +134,37 @@ public class MusicDBManager {
 		}
 	}
 
+	/**
+	 * 保存单首歌曲信息
+	 * 
+	 * @param info
+	 */
 	public void addMusicInfo(MusicInfo info) {
 		mListingDB.beginTransaction(); // 开始事务
 		try {
 			mListingDB.execSQL(
-					"INSERT INTO " + musicPlayingListingTable + " VALUES(null, ?, ?, ?, ?, ?, ? , ?,?)",
+					"INSERT INTO " + musicPlayingListingTable + " VALUES(null, ?, ?, ?, ?, ?, ? , ?,?,?)",
 					new Object[] { info.getMusicListingID(), info.getTitle(), info.getUrl(), info.getArtist(), info.getDuration(),
-							info.getSize(),info.getAlbumID(),info.getAlbum() });
+							info.getSize(), info.getAlbumID(), info.getAlbum(), info.getLrcUrl() });
 			mListingDB.setTransactionSuccessful(); // 设置事务成功完成
 		} finally {
 			mListingDB.endTransaction(); // 结束事务
 		}
 	}
 
+	/**
+	 * 批量保存音乐文件信息
+	 * 
+	 * @param infos
+	 * @param musicListingID
+	 */
 	public void addMusicInfos(List<MusicInfo> infos, int musicListingID) {
 		mListingDB.beginTransaction(); // 开始事务
 		try {
 			for (MusicInfo info : infos) {
-				mListingDB.execSQL("INSERT INTO " + musicPlayingListingTable + " VALUES(null, ?, ?, ?, ?, ?, ?,?,?)", new Object[] {
-						musicListingID, info.getTitle(), info.getUrl(), info.getArtist(), info.getDuration(), info.getSize(),info.getAlbumID(),info.getAlbum() });
+				mListingDB.execSQL("INSERT INTO " + musicPlayingListingTable + " VALUES(null, ?, ?, ?, ?, ?, ?, ? , ?,? )",
+						new Object[] { musicListingID, info.getTitle(), info.getUrl(), info.getArtist(), info.getDuration(),
+								info.getSize(), info.getAlbumID(), info.getAlbum(), info.getLrcUrl() });
 			}
 
 			mListingDB.setTransactionSuccessful(); // 设置事务成功完成
@@ -129,11 +173,22 @@ public class MusicDBManager {
 		}
 	}
 
+	/**
+	 * 更新音乐信息中的 LRC 中的URL信息
+	 * 
+	 * @param info
+	 */
+	public void updateMusicInfoLrcUrl(MusicInfo info) {
+		ContentValues cv = new ContentValues();
+		cv.put("lrc_url", info.getLrcUrl());
+		int conut = mMusicDB.update(musicPlayingListingTable, cv, "_id = ?", new String[] { info.getId() + "" });
+		System.out.println("已经更新 " + musicPlayingListingTable + ":" + conut);
+	}
+
 	public void updateMusicListingItem(MusicListingItem item) {
 		ContentValues cv = new ContentValues();
 		cv.put("title", item.getTitle());
 		cv.put("count", item.getCount());
-
 		int conut = mMusicDB.update(musicListingTable, cv, "_id = ?", new String[] { item.getId() + "" });
 		System.out.println("已经更新 MusicListing：" + conut);
 	}
@@ -143,6 +198,11 @@ public class MusicDBManager {
 		System.out.println("已经删除：" + i + " MusicListingItem");
 	}
 
+	/**
+	 * 删除单个音乐信息
+	 * 
+	 * @param infoID
+	 */
 	public void deleteMusicInfo(long infoID) {
 		int i = mListingDB.delete(musicPlayingListingTable, "_id= ?", new String[] { String.valueOf(infoID) });
 		System.out.println("已经删除：" + i + " MusicInfo");
@@ -167,6 +227,11 @@ public class MusicDBManager {
 		return items;
 	}
 
+	/**
+	 * 查询所有的音乐曲目的信息
+	 * 
+	 * @return
+	 */
 	public List<MusicInfo> queryAllMusicInfos() {
 		ArrayList<MusicInfo> infos = new ArrayList<MusicInfo>();
 		Cursor c = mListingDB.query(musicPlayingListingTable, null, null, null, null, null, null);
@@ -179,15 +244,22 @@ public class MusicDBManager {
 			info.setArtist(c.getString(c.getColumnIndex("artist")));
 			info.setDuration(c.getInt(c.getColumnIndex("duration")));
 			info.setSize(c.getInt(c.getColumnIndex("size")));
-			
+
 			info.setAlbumID(c.getInt(c.getColumnIndex("albunm_id")));
 			info.setAlbum(c.getString(c.getColumnIndex("album")));
+			info.setLrcUrl(c.getString(c.getColumnIndex("lrc_url")));
 			infos.add(info);
 		}
 		c.close();
 		return infos;
 	}
 
+	/**
+	 * 查询特定音乐列表里面的所有音乐
+	 * 
+	 * @param music_listing_id
+	 * @return
+	 */
 	public List<MusicInfo> queryMusicInfos(int music_listing_id) {
 		ArrayList<MusicInfo> infos = new ArrayList<MusicInfo>();
 		Cursor c = mListingDB.rawQuery("select * from " + musicPlayingListingTable + " where music_listing_id=?",
@@ -204,6 +276,7 @@ public class MusicDBManager {
 			info.setSize(c.getInt(c.getColumnIndex("size")));
 			info.setAlbumID(c.getInt(c.getColumnIndex("albunm_id")));
 			info.setAlbum(c.getString(c.getColumnIndex("album")));
+			info.setLrcUrl(c.getString(c.getColumnIndex("lrc_url")));
 			infos.add(info);
 		}
 		c.close();

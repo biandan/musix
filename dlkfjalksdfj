@@ -1,0 +1,309 @@
+[33mcommit 921924a7505f0871334da3c2d2fd18c61aa7eab0[m
+Author: biandan <biandan123100@gmail.com>
+Date:   Wed Oct 28 23:49:09 2015 +0800
+
+    tessst
+
+[1mdiff --git a/AndroidManifest.xml b/AndroidManifest.xml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e436197[m
+[1m--- /dev/null[m
+[1m+++ b/AndroidManifest.xml[m
+[36m@@ -0,0 +1,40 @@[m
+[32m+[m[32m<?xml version="1.0" encoding="utf-8"?>[m
+[32m+[m[32m<manifest xmlns:android="http://schemas.android.com/apk/res/android"[m
+[32m+[m[32m    package="com.yikang.ykmusix"[m
+[32m+[m[32m    android:versionCode="1"[m
+[32m+[m[32m    android:versionName="1.0" >[m
+[32m+[m
+[32m+[m[32m    <uses-sdk[m
+[32m+[m[32m        android:minSdkVersion="11"[m
+[32m+[m[32m        android:targetSdkVersion="18" />[m
+[32m+[m[32m    <!-- 加入在SDCard中创建与删除文件的权限 -->[m
+[32m+[m[32m    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />[m
+[32m+[m[32m    <!-- 加入在SDCard中写入数据的权限 -->[m
+[32m+[m[32m    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />[m
+[32m+[m
+[32m+[m[32m    <application[m
+[32m+[m[32m        android:allowBackup="true"[m
+[32m+[m[32m        android:icon="@drawable/ic_launcher"[m
+[32m+[m[32m        android:label="@string/app_name"[m
+[32m+[m[32m        android:theme="@style/AppTheme" >[m
+[32m+[m[32m        <activity[m
+[32m+[m[32m            android:name="com.yikang.ykmusix.MainMusixActivity"[m
+[32m+[m[32m            android:label="@string/app_name" >[m
+[32m+[m[32m            <intent-filter>[m
+[32m+[m[32m                <action android:name="android.intent.action.MAIN" />[m
+[32m+[m
+[32m+[m[32m                <category android:name="android.intent.category.LAUNCHER" />[m
+[32m+[m[32m            </intent-filter>[m
+[32m+[m[32m        </activity>[m
+[32m+[m[32m        <activity android:name="com.yikang.ykmusix.MusicFileSelectActivity" >[m
+[32m+[m[32m        </activity>[m
+[32m+[m[32m        <activity[m
+[32m+[m[32m            android:name="com.yikang.ykmusix.MusicListingActivity"[m
+[32m+[m[32m            android:windowSoftInputMode="adjustResize" >[m
+[32m+[m[32m        </activity>[m
+[32m+[m
+[32m+[m[32m        <service android:name="com.yikang.ykmusix.MusicPlayerService" >[m
+[32m+[m[32m        </service>[m
+[32m+[m[32m    </application>[m
+[32m+[m
+[32m+[m[32m</manifest>[m
+\ No newline at end of file[m
+[1mdiff --git a/assets/ten.mp3 b/assets/ten.mp3[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e129488[m
+Binary files /dev/null and b/assets/ten.mp3 differ
+[1mdiff --git a/bin/AndroidManifest.xml b/bin/AndroidManifest.xml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e436197[m
+[1m--- /dev/null[m
+[1m+++ b/bin/AndroidManifest.xml[m
+[36m@@ -0,0 +1,40 @@[m
+[32m+[m[32m<?xml version="1.0" encoding="utf-8"?>[m
+[32m+[m[32m<manifest xmlns:android="http://schemas.android.com/apk/res/android"[m
+[32m+[m[32m    package="com.yikang.ykmusix"[m
+[32m+[m[32m    android:versionCode="1"[m
+[32m+[m[32m    android:versionName="1.0" >[m
+[32m+[m
+[32m+[m[32m    <uses-sdk[m
+[32m+[m[32m        android:minSdkVersion="11"[m
+[32m+[m[32m        android:targetSdkVersion="18" />[m
+[32m+[m[32m    <!-- 加入在SDCard中创建与删除文件的权限 -->[m
+[32m+[m[32m    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />[m
+[32m+[m[32m    <!-- 加入在SDCard中写入数据的权限 -->[m
+[32m+[m[32m    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />[m
+[32m+[m
+[32m+[m[32m    <application[m
+[32m+[m[32m        android:allowBackup="true"[m
+[32m+[m[32m        android:icon="@drawable/ic_launcher"[m
+[32m+[m[32m        android:label="@string/app_name"[m
+[32m+[m[32m        android:theme="@style/AppTheme" >[m
+[32m+[m[32m        <activity[m
+[32m+[m[32m            android:name="com.yikang.ykmusix.MainMusixActivity"[m
+[32m+[m[32m            android:label="@string/app_name" >[m
+[32m+[m[32m            <intent-filter>[m
+[32m+[m[32m                <action android:name="android.intent.action.MAIN" />[m
+[32m+[m
+[32m+[m[32m                <category android:name="android.intent.category.LAUNCHER" />[m
+[32m+[m[32m            </intent-filter>[m
+[32m+[m[32m        </activity>[m
+[32m+[m[32m        <activity android:name="com.yikang.ykmusix.MusicFileSelectActivity" >[m
+[32m+[m[32m        </activity>[m
+[32m+[m[32m        <activity[m
+[32m+[m[32m            android:name="com.yikang.ykmusix.MusicListingActivity"[m
+[32m+[m[32m            android:windowSoftInputMode="adjustResize" >[m
+[32m+[m[32m        </activity>[m
+[32m+[m
+[32m+[m[32m        <service android:name="com.yikang.ykmusix.MusicPlayerService" >[m
+[32m+[m[32m        </service>[m
+[32m+[m[32m    </application>[m
+[32m+[m
+[32m+[m[32m</manifest>[m
+\ No newline at end of file[m
+[1mdiff --git a/bin/R.txt b/bin/R.txt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..47c424b[m
+[1m--- /dev/null[m
+[1m+++ b/bin/R.txt[m
+[36m@@ -0,0 +1,186 @@[m
+[32m+[m[32mint attr behindOffset 0x7f010003[m
+[32m+[m[32mint attr behindScrollScale 0x7f010005[m
+[32m+[m[32mint attr behindWidth 0x7f010004[m
+[32m+[m[32mint attr fadeDegree 0x7f01000b[m
+[32m+[m[32mint attr fadeEnabled 0x7f01000a[m
+[32m+[m[32mint attr mode 0x7f010000[m
+[32m+[m[32mint attr selectorDrawable 0x7f01000d[m
+[32m+[m[32mint attr selectorEnabled 0x7f01000c[m
+[32m+[m[32mint attr shadowDrawable 0x7f010008[m
+[32m+[m[32mint attr shadowWidth 0x7f010009[m
+[32m+[m[32mint attr touchModeAbove 0x7f010006[m
+[32m+[m[32mint attr touchModeBehind 0x7f010007[m
+[32m+[m[32mint attr viewAbove 0x7f010001[m
+[32m+[m[32mint attr viewBehind 0x7f010002[m
+[32m+[m[32mint dimen activity_horizontal_margin 0x7f050000[m
+[32m+[m[32mint dimen activity_vertical_margin 0x7f050001[m
+[32m+[m[32mint dimen list_padding 0x7f050003[m
+[32m+[m[32mint dimen shadow_width 0x7f050004[m
+[32m+[m[32mint dimen slidingmenu_offset 0x7f050002[m
+[32m+[m[32mint drawable btn_del 0x7f020000[m
+[32m+[m[32mint drawable btn_del_pres 0x7f020001[m
+[32m+[m[32mint drawable btn_down 0x7f020002[m
+[32m+[m[32mint drawable btn_next_normal 0x7f020003[m
+[32m+[m[32mint drawable btn_next_press 0x7f020004[m
+[32m+[m[32mint drawable btn_pause_normal 0x7f020005[m
+[32m+[m[32mint drawable btn_pause_press 0x7f020006[m
+[32m+[m[32mint drawable btn_play_normal 0x7f020007[m
+[32m+[m[32mint drawable btn_play_press 0x7f020008[m
+[32m+[m[32mint drawable btn_prev_disable 0x7f020009[m
+[32m+[m[32mint drawable btn_prev_normal 0x7f02000a[m
+[32m+[m[32mint drawable btn_prev_press 0x7f02000b[m
+[32m+[m[32mint drawable btn_up 0x7f02000c[m
+[32m+[m[32mint drawable default_background 0x7f02000d[m
+[32m+[m[32mint drawable del_bt 0x7f02000e[m
+[32m+[m[32mint drawable ic_launcher 0x7f02000f[m
+[32m+[m[32mint drawable icn_close 0x7f020010[m
+[32m+[m[32mint drawable img_frame_background 0x7f020011[m
+[32m+[m[32mint drawable local_fb_icn_close 0x7f020012[m
+[32m+[m[32mint drawable local_fb_icn_close_prs 0x7f020013[m
+[32m+[m[32mint drawable loop_bt 0x7f020014[m
+[32m+[m[32mint drawable loop_btn_normal 0x7f020015[m
+[32m+[m[32mint drawable menu_background 0x7f020016[m
+[32m+[m[32mint drawable musiclist_bt 0x7f020017[m
+[32m+[m[32mint drawable next_bt 0x7f020018[m
+[32m+[m[32mint drawable order_bt 0x7f020019[m
+[32m+[m[32mint drawable order_default 0x7f02001a[m
+[32m+[m[32mint drawable pause_bt 0x7f02001b[m
+[32m+[m[32mint drawable play_bt 0x7f02001c[m
+[32m+[m[32mint drawable play_icn_loop 0x7f02001d[m
+[32m+[m[32mint drawable play_icn_loop_prs 0x7f02001e[m
+[32m+[m[32mint drawable play_icn_one 0x7f02001f[m
+[32m+[m[32mint drawable play_icn_one_prs 0x7f020020[m
+[32m+[m[32mint drawable play_icn_shuffle 0x7f020021[m
+[32m+[m[32mint drawable play_icn_shuffle_prs 0x7f020022[m
+[32m+[m[32mint drawable play_icn_src 0x7f020023[m
+[32m+[m[32mint drawable play_icn_src_prs 0x7f020024[m
+[32m+[m[32mint drawable player_bg 0x7f020025[m
+[32m+[m[32mint drawable player_btn_mode_playall_normal 0x7f020026[m
+[32m+[m[32mint drawable player_btn_mode_playall_select 0x7f020027[m
+[32m+[m[32mint drawable player_menu_icon_equalizer_normal 0x7f020028[m
+[32m+[m[32mint drawable player_menu_icon_equalizer_select 0x7f020029[m
+[32m+[m[32mint drawable player_musiclist_disabled 0x7f02002a[m
+[32m+[m[32mint drawable player_musiclist_normal 0x7f02002b[m
+[32m+[m[32mint drawable prev_bt 0x7f02002c[m
+[32m+[m[32mint drawable shuffle_bt 0x7f02002d[m
+[32m+[m[32mint drawable shuffle_btn_normal 0x7f02002e[m
+[32m+[m[32mint drawable shuffle_btn_selected 0x7f02002f[m
+[32m+[m[32mint drawable single_bt 0x7f020030[m
+[32m+[m[32mint drawable single_btn_normal 0x7f020031[m
+[32m+[m[32mint drawable single_btn_selected 0x7f020032[m
+[32m+[m[32mint id action_settings 0x7f04004c[m
+[32m+[m[32mint id bt_about 0x7f040032[m
+[32m+[m[32mint id bt_exit 0x7f040035[m
+[32m+[m[32mint id bt_listing_del 0x7f04003c[m
+[32m+[m[32mint id bt_music_before 0x7f040011[m
+[32m+[m[32mint id bt_music_list 0x7f040014[m
+[32m+[m[32mint id bt_music_listing_add 0x7f04001f[m
+[32m+[m[32mint id bt_music_mode 0x7f040010[m
+[32m+[m[32mint id bt_music_next 0x7f040013[m
+[32m+[m[32mint id bt_music_play 0x7f040012[m
+[32m+[m[32mint id bt_music_settin 0x7f040031[m
+[32m+[m[32mint id bt_play_listing_add_del 0x7f040025[m
+[32m+[m[32mint id bt_play_listing_all_inv 0x7f040023[m
+[32m+[m[32mint id bt_play_listing_p 0x7f040026[m
+[32m+[m[32mint id bt_select_all 0x7f04000a[m
+[32m+[m[32mint id bt_select_cancel 0x7f04000c[m
+[32m+[m[32mint id bt_select_invert 0x7f04000b[m
+[32m+[m[32mint id bt_select_ok 0x7f04000d[m
+[32m+[m[32mint id bt_setting 0x7f040033[m
+[32m+[m[32mint id bt_time_off 0x7f040034[m
+[32m+[m[32mint id btn_notif_exit 0x7f040047[m
+[32m+[m[32mint id btn_notif_next 0x7f040046[m
+[32m+[m[32mint id btn_notif_play 0x7f040045[m
+[32m+[m[32mint id cb_item_play_listing_choose 0x7f040040[m
+[32m+[m[32mint id cb_show_music_choose 0x7f040042[m
+[32m+[m[32mint id et_dialog_input_title 0x7f04001c[m
+[32m+[m[32mint id et_listing_title 0x7f04003b[m
+[32m+[m[32mint id fl_music_listing_container 0x7f040006[m
+[32m+[m[32mint id fl_my_menu 0x7f04004a[m
+[32m+[m[32mint id fullscreen 0x7f040003[m
+[32m+[m[32mint id img_album 0x7f040030[m
+[32m+[m[32mint id left 0x7f040000[m
+[32m+[m[32mint id ll_behind 0x7f040028[m
+[32m+[m[32mint id ll_custom_button 0x7f040044[m
+[32m+[m[32mint id ll_front 0x7f04002f[m
+[32m+[m[32mint id ll_music_listing 0x7f04001e[m
+[32m+[m[32mint id ll_player 0x7f04000f[m
+[32m+[m[32mint id ll_player_progress 0x7f040015[m
+[32m+[m[32mint id ll_select_bt_perent 0x7f040009[m
+[32m+[m[32mint id ll_show_current_info 0x7f040019[m
+[32m+[m[32mint id lv_music_listing 0x7f04001d[m
+[32m+[m[32mint id lv_music_play_list 0x7f040020[m
+[32m+[m[32mint id lv_play_listing 0x7f040024[m
+[32m+[m[32mint id lv_show_music 0x7f040008[m
+[32m+[m[32mint id margin 0x7f040002[m
+[32m+[m[32mint id none 0x7f040004[m
+[32m+[m[32mint id notif_song_icon 0x7f040043[m
+[32m+[m[32mint id right 0x7f040001[m
+[32m+[m[32mint id rl_led 0x7f040029[m
+[32m+[m[32mint id rl_music1 0x7f04002e[m
+[32m+[m[32mint id rl_music2 0x7f04002d[m
+[32m+[m[32mint id rl_nao 0x7f04002c[m
+[32m+[m[32mint id rl_pull_and_push 0x7f040027[m
+[32m+[m[32mint id rl_safa 0x7f04002b[m
+[32m+[m[32mint id rl_select_root 0x7f040007[m
+[32m+[m[32mint id sb_player_progress 0x7f040017[m
+[32m+[m[32mint id selected_view 0x7f040005[m
+[32m+[m[32mint id slidingmenumain 0x7f04004b[m
+[32m+[m[32mint id tv_item_play_listing_artist 0x7f04003f[m
+[32m+[m[32mint id tv_item_play_listing_duration 0x7f040041[m
+[32m+[m[32mint id tv_item_play_listing_title 0x7f04003e[m
+[32m+[m[32mint id tv_listing_count 0x7f04003d[m
+[32m+[m[32mint id tv_music1 0x7f04002a[m
+[32m+[m[32mint id tv_notif_song_name 0x7f040049[m
+[32m+[m[32mint id tv_notif_song_singer 0x7f040048[m
+[32m+[m[32mint id tv_play_listing 0x7f040022[m
+[32m+[m[32mint id tv_play_listing_title 0x7f040021[m
+[32m+[m[32mint id tv_player_cur_time 0x7f040016[m
+[32m+[m[32mint id tv_player_time 0x7f040018[m
+[32m+[m[32mint id tv_show_artist 0x7f040037[m
+[32m+[m[32mint id tv_show_duration 0x7f04003a[m
+[32m+[m[32mint id tv_show_info_artist 0x7f04001b[m
+[32m+[m[32mint id tv_show_info_title 0x7f04001a[m
+[32m+[m[32mint id tv_show_music_artist 0x7f040038[m
+[32m+[m[32mint id tv_show_music_duration 0x7f040039[m
+[32m+[m[32mint id tv_show_music_title 0x7f040036[m
+[32m+[m[32mint id vp_musix_index 0x7f04000e[m
+[32m+[m[32mint integer num_cols 0x7f060000[m
+[32m+[m[32mint layout a_music_listing 0x7f030000[m
+[32m+[m[32mint layout a_music_select 0x7f030001[m
+[32m+[m[32mint layout activity_main 0x7f030002[m
+[32m+[m[32mint layout dialog_input_listing_title 0x7f030003[m
+[32m+[m[32mint layout f_music_listing 0x7f030004[m
+[32m+[m[32mint layout f_music_play_list 0x7f030005[m
+[32m+[m[32mint layout f_play_listing 0x7f030006[m
+[32m+[m[32mint layout f_pull_and_push 0x7f030007[m
+[32m+[m[32mint layout f_sliding_menu 0x7f030008[m
+[32m+[m[32mint layout item_main_music_playing_list 0x7f030009[m
+[32m+[m[32mint layout item_music_listing 0x7f03000a[m
+[32m+[m[32mint layout item_play_listing 0x7f03000b[m
+[32m+[m[32mint layout item_select_music_list 0x7f03000c[m
+[32m+[m[32mint layout notify_re_view 0x7f03000d[m
+[32m+[m[32mint layout s_menu 0x7f03000e[m
+[32m+[m[32mint layout slidingmenumain 0x7f03000f[m
+[32m+[m[32mint menu main 0x7f090000[m
+[32m+[m[32mint menu main_musix 0x7f090001[m
+[32m+[m[32mint string action_settings 0x7f070001[m
+[32m+[m[32mint string app_name 0x7f070000[m
+[32m+[m[32mint string hello_world 0x7f070002[m
+[32m+[m[32mint style AppBaseTheme 0x7f080000[m
+[32m+[m[32mint style AppTheme 0x7f080001[m
+[32m+[m[32mint[] styleable SlidingMenu { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d }[m
+[32m+[m[32mint styleable SlidingMenu_behindOffset 3[m
+[32m+[m[32mint styleable SlidingMenu_behindScrollScale 5[m
+[32m+[m[32mint styleable SlidingMenu_behindWidth 4[m
+[32m+[m[32mint styleable SlidingMenu_fadeDegree 11[m
+[32m+[m[32mint styleable SlidingMenu_fadeEnabled 10[m
+[32m+[m[32mint styleable SlidingMenu_mode 0[m
+[32m+[m[32mint styleable SlidingMenu_selectorDrawable 13[m
+[32m+[m[32mint styleable SlidingMenu_selectorEnabled 12[m
+[32m+[m[32mint styleable SlidingMenu_shadowDrawable 8[m
+[32m+[m[32mint styleable SlidingMenu_shadowWidth 9[m
+[32m+[m[32mint styleable SlidingMenu_touchModeAbove 6[m
+[32m+[m[32mint styleable SlidingMenu_touchModeBehind 7[m
+[32m+[m[32mint styleable SlidingMenu_viewAbove 1[m
+[32m+[m[32mint styleable SlidingMenu_viewBehind 2[m
+[1mdiff --git a/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$attr.class b/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$attr.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d0df1cc[m
+Binary files /dev/null and b/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$attr.class differ
+[1mdiff --git a/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$id.class b/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$id.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f59bcab[m
+Binary files /dev/null and b/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$id.class differ
+[1mdiff --git a/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$layout.class b/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$layout.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6bb33b4[m
+Binary files /dev/null and b/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$layout.class differ
+[1mdiff --git a/bin/classes/com/jeremyfeinstein/slidingmenu/lib/R$styleable.class b/bin/classes/com/jeremyfeinstein/slidingmenu/l

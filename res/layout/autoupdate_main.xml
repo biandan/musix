@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dip"
+    android:orientation="vertical"
+    android:gravity="center"
+      android:background="@drawable/default_background" 
+    tools:context="${packageName}.${activityClass}" >
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+       <!--  <Button 
+	        android:id="@+id/btn_ui"
+	        android:layout_width="match_parent"
+	        android:layout_height="40dip"
+	        android:text="UI更新"
+	        />
+	
+	    <Button 
+	        android:id="@+id/btn_silence"
+	        android:layout_width="match_parent"
+	        android:layout_height="40dip"
+	        android:text="静默更新"
+	        />
+	    
+	    <Button 
+	        android:id="@+id/btn_as"
+	        android:layout_width="match_parent"
+	        android:layout_height="40dip"
+	        android:text="百度助手更新"
+	        />
+	 -->
+	    <Button 
+	        android:id="@+id/btn_noui"
+	        android:layout_width="match_parent"
+	        android:layout_height="40dip"
+	        android:background="@drawable/music_del_style_bt"
+	        android:text="点击更新"
+	        />
+    </LinearLayout>
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <TextView 
+	        android:id="@+id/txt_log"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        />
+    </ScrollView>
+    
+</LinearLayout>
