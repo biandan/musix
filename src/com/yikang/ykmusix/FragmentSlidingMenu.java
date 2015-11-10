@@ -70,10 +70,10 @@ public class FragmentSlidingMenu extends Fragment {
 						getActivity());
 				qZoneShare
 						.shareToQZone(
-								"Musix player",
-								"this is musix play test ",
-								"https://github.com/biandan/musix",
-								"http://media-cdn.tripadvisor.com/media/photo-s/01/3e/05/40/the-sandbar-that-links.jpg");
+								"Hello QZone ! 我来了！",
+								"hello,大家好，我是musix player，来混个脸熟  ヾ(≧O≦)〃嗷~ \n 其实俺只是一款安静的音乐播放器~~",
+								"http://shouji.baidu.com/software/item?docid=8079648&from=as",
+								"https://avatars2.githubusercontent.com/u/9492757?v=3&u=614a5ec53801e4a275802dad8c7359db0509a7dc&s=140");
 			}
 		});
 		/*-----------------*/

@@ -54,7 +54,7 @@ public class QZoneShareActivity extends Activity {
 				params.putString(QzoneShare.SHARE_TO_QQ_TITLE,
 						"Hello QZone ! 我来了！");
 				params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY,
-						"咱这是第一次测试，还不知道什么情况，先试试能不能用先~~");
+						"hello,大家好，我是musix player，来混个脸熟  ヾ(≧O≦)〃嗷~ \n 其实俺只是一款安静的音乐播放器~~");
 				params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL,
 						"https://github.com/biandan/musix");
 				ArrayList imageUrls = new ArrayList();

@@ -22,8 +22,8 @@
         android:id="@+id/ll_select_bt_perent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" 
-        android:layout_centerInParent="true">
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true" >
 
         <!-- android:background="@drawable/buttons_bg" -->
 
@@ -32,28 +32,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="@drawable/select_all_bt" />
+            android:background="@drawable/select_all_bt"
+            android:gravity="center" />
 
         <Button
             android:id="@+id/bt_select_invert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="@drawable/select_inv_bt" />
+            android:background="@drawable/select_inv_bt"
+            android:gravity="center" />
 
         <Button
             android:id="@+id/bt_select_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="@drawable/select_cancel_bt" />
+            android:background="@drawable/select_cancel_bt"
+            android:gravity="center" />
 
         <Button
             android:id="@+id/bt_select_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="@drawable/select_ok_bt" />
+            android:background="@drawable/select_ok_bt"
+            android:gravity="center" />
     </LinearLayout>
 
 </RelativeLayout>
