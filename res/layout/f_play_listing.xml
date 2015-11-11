@@ -15,7 +15,7 @@
         android:id="@+id/ll_play_listing_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8ff1f1"
+       
         android:orientation="horizontal" >
 
         <TextView
@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:textColor="#EFEBE9"
             android:layout_weight="1"
             android:padding="5dp"
             android:text="已经选择X个"
@@ -30,10 +31,8 @@
 
         <Button
             android:id="@+id/bt_play_listing_all_inv"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/tv_play_listing"
             android:layout_weight="1"
             android:text="All/INV" />
     </LinearLayout>

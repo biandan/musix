@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -159,6 +160,9 @@ public class FragmentPlayListing extends Fragment implements OnClickListener {
 	 * ==================================================
 	 */
 	Context mContext;
+	/**
+	 * MusicListing业务
+	 */
 	MusicListing mListingMode;
 
 	public static final FragmentPlayListing newInstance(Context mContext, MusicListing mListingMode, MusicListingItem mItem, int MusicItemPS) {
@@ -220,7 +224,7 @@ public class FragmentPlayListing extends Fragment implements OnClickListener {
 						MusicStaticPool.setCurPlayListPS(position);
 						MusicStaticPool.setCurListingPS(MusicItemPS);
 						mCallBack.itemHasSelectToPlay(MusicStaticPool.getCurPlayList().get(position).getUrl());
-						
+						adapter.notifyDataSetChanged();
 
 					}
 				}
@@ -330,6 +334,14 @@ public class FragmentPlayListing extends Fragment implements OnClickListener {
 				holder = (ViewHolderListingItem) convertView.getTag();
 			}
 			holder.mTV_title.setText(curPlayLists.get(position).getTitle() + "");
+			if(position==MusicStaticPool.getCurPlayListPS()){
+				if(mItem.getId()==MusicStaticPool.getCurListing().get(MusicStaticPool.getCurListingPS()).getId()){
+					holder.mTV_title.setTextColor(Color.RED);
+				}
+			}else{
+				holder.mTV_title.setTextColor(Color.BLACK);
+			}
+			
 			holder.mTV_artist.setText(curPlayLists.get(position).getArtist() + "");
 			holder.mTV_duration.setText(MusicInfo.getDurStr(curPlayLists.get(position).getDuration()) + "");
 
@@ -391,12 +403,13 @@ public class FragmentPlayListing extends Fragment implements OnClickListener {
 	 * 按下取消键时，fragment的动作
 	 */
 
-	public void playListingFragmentCancelKey() {
+	public  void playListingFragmentCancelKey() {
 		if (adapter != null) {
 			animatorDisappear(root_play_listing, ll_play_listing_state, 550);
 			bt_add_del.setText("添加音乐到当前列表");
 			bt_add_del.setBackgroundResource(R.drawable.music_add_style_bt);
-
+			hasSelectedCount=0;
+			tv_hasChoosed.setText("已经选中0项");
 			isDelMode = false;
 			adapter.notifyDataSetChanged();
 		}

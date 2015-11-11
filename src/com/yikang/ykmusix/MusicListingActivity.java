@@ -85,7 +85,7 @@ public class MusicListingActivity extends Activity implements FragmentMusicListi
 	void setToPlayListingFragment(MusicListingItem mItem ,int MusicItemPS) {
 		isListingFragment = false;
 
-		mFM.beginTransaction().replace(R.id.fl_music_listing_container, FragmentPlayListing.newInstance(mContext, mListingMode, mItem,MusicItemPS))
+		mFM.beginTransaction().replace(R.id.fl_music_listing_container, FragmentPlayListing.newInstance(mContext, mListingMode, mItem,MusicItemPS),TagPlayFragemt)
 				.commit();
 	}
 
@@ -112,8 +112,9 @@ public class MusicListingActivity extends Activity implements FragmentMusicListi
 				return super.onKeyDown(keyCode, event);
 			} else {
 				if (FragmentPlayListing.isDelMode) {
-					// PlayListingFragment.playListingFragmentCancelKey();
-					// setToPlayListingFragment();
+					((FragmentPlayListing)mFM.findFragmentByTag(TagPlayFragemt)).playListingFragmentCancelKey();
+//					 .;
+//					 setToPlayListingFragment();
 					return true;
 				} else {
 					setToMusicListingFragment();
